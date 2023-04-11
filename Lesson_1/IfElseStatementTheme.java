@@ -144,29 +144,30 @@ public class IfElseStatementTheme {
 
         System.out.println("\n9.Подсчет количества банкнот\n");
         int srcUsd = 567;
-        int reserveHundred = 10;
-        int reserveTen = 5;
-        int reserveOne = 50;
-        int sumReserve = reserveHundred * 100 + reserveTen * 10 + reserveOne;
-        if (srcUsd > sumReserve) {
+        int reserve100 = 10;
+        int reserve10 = 5;
+        int reserve1 = 50;
+        if (srcUsd > reserve100 * 100 + reserve10 * 10 + reserve1 ||
+            srcUsd % 100 > reserve10 * 10 + reserve1 ||
+            srcUsd % 10 > reserve1 ) {
             System.out.println("Банкнот не хватает для выдачи нужной суммы");
         } else {
-            int numHundred = srcUsd / 100;
-            int numTen = srcUsd / 10 % 10;
-            int numOne = srcUsd % 10;
-            if (srcUsd == sumReserve) {
-                numHundred = reserveHundred;
-                numTen = reserveTen;
-                numOne = reserveOne;
-            } else if (numTen > reserveTen) {
-                numOne += (numTen - reserveTen) * 10;
-                numTen = reserveTen;
-                }
-            System.out.println("К выдаче: " + "\n" +
-                    numHundred + " по 100" + "\n" +
-                    numTen + " по 10" + "\n" +
-                    numOne + " по 1" + "\n" +
-                    "К выдаче " + srcUsd + " USD");
+            int num100 = srcUsd / 100;
+            int num10 = srcUsd / 10 % 10;
+            num1 = srcUsd % 10;
+            if (num100 > reserve100) {
+                num10 += (num100 - reserve100) * 10;
+                num100 = reserve100;
+            }
+            if (num10 > reserve10) {
+                num1 += (num10 - reserve10) * 10;
+                num10 = reserve10;
+            }
+            System.out.println("К выдаче: " + "\n\n" +
+                    num100 + " по 100" + "\n" +
+                    num10 + " по 10" + "\n" +
+                    num1 + " по 1" + "\n\n" +
+                    srcUsd + " USD");
         }
     }
 }
