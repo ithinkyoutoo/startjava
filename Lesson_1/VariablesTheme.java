@@ -89,29 +89,29 @@ public class VariablesTheme {
                 (int) underscore + " " + underscore);
 
         System.out.println("\n7.Вывод в консоль ASCII-арт Дюка\n");
-        char forwardSlash = '/';
+        char slash = '/';
         char backSlash = '\\';
         char openParenthesis = '(';
         char closeParenthesis = ')';
-        System.out.println("    " + forwardSlash + backSlash + "\n" +
-                "   " + forwardSlash + "  " + backSlash + "\n" +
-                "  " + forwardSlash + underscore + openParenthesis +
+        System.out.println("    " + slash + backSlash + "\n" +
+                "   " + slash + "  " + backSlash + "\n" +
+                "  " + slash + underscore + openParenthesis +
                 " " + closeParenthesis + backSlash + "\n" +
-                " " + forwardSlash + "      " + backSlash + "\n" +
-                "" + forwardSlash + underscore + underscore + underscore +
-                underscore + forwardSlash + backSlash + underscore + underscore + backSlash);
+                " " + slash + "      " + backSlash + "\n" +
+                "" + slash + underscore + underscore + underscore +
+                underscore + slash + backSlash + underscore + underscore + backSlash);
 
         System.out.println("\n8.Вывод количества сотен, десятков и единиц числа\n");
         int srcNum = 123;
-        int numHundred = srcNum / 100;
-        int numTen = srcNum / 10 % 10;
-        int numOne = srcNum % 10;
+        int numHundreds = srcNum / 100;
+        int numTens = srcNum / 10 % 10;
+        int numOnes = srcNum % 10;
         System.out.println("Число 123 содержит:\n" +
-                numHundred + " сотня\n" +
-                numTen + " десятка\n" +
-                numOne + " единицы\n");
-        int sum = numHundred + numTen + numOne;
-        int prod = numHundred * numTen * numOne;
+                numHundreds + " сотня\n" +
+                numTens + " десятка\n" +
+                numOnes + " единицы\n");
+        int sum = numHundreds + numTens + numOnes;
+        int prod = numHundreds * numTens * numOnes;
         System.out.println("Сумма цифр = " + sum + "\n" +
                 "Произведение = " + prod);
 
