@@ -43,17 +43,17 @@ public class IfElseStatementTheme {
         System.out.println("\n3.Проверка числа\n");
         num1 = 36;
         if (num1 == 0) {
-            System.out.println("Ошибка! Введите число отличное от нуля.");
+            System.out.println("Число равно нулю");
         } else {
-            String even = "нечетным";
-            String sign = "отрицательным";
+            String state = "нечетным";
             if (num1 % 2 == 0) {
-                even = "четным";
+                state = "четным";
             }
+            String sign = "отрицательным";
             if (num1 > 0) {
                 sign = "положительным";
             }
-            System.out.println("Число " + num1 + " является " + even + ", " + sign);
+            System.out.println("Число " + num1 + " является " + state + ", " + sign);
         }
 
         System.out.println("\n4.Поиск одинаковых цифр в числах\n");
@@ -82,13 +82,13 @@ public class IfElseStatementTheme {
         }
 
         System.out.println("\n5.Определение символа по его коду\n");
-        char ch1 = '\u0057';
-        if (ch1 >= 'a' && ch1 <= 'z' ) {
-            System.out.println(ch1 + " маленькая буква");
-        } else if (ch1 >= 'A' && ch1 <= 'Z') {
-            System.out.println(ch1 + " большая буква");
-        } else if (ch1 >= '0' && ch1 <= '9') {
-            System.out.println(ch1 + " число");
+        char code = '\u0057';
+        if (code >= 'a' && code <= 'z' ) {
+            System.out.println(code + " маленькая буква");
+        } else if (code >= 'A' && code <= 'Z') {
+            System.out.println(code + " большая буква");
+        } else if (code >= '0' && code <= '9') {
+            System.out.println(code + " число");
         } else {
             System.out.println("не буква и не число");
         }
@@ -147,9 +147,10 @@ public class IfElseStatementTheme {
         int reserve100 = 10;
         int reserve10 = 5;
         int reserve1 = 50;
-        if (srcUsd > reserve100 * 100 + reserve10 * 10 + reserve1 ||
-            srcUsd % 100 > reserve10 * 10 + reserve1 ||
-            srcUsd % 10 > reserve1 ) {
+        boolean hasReserve = srcUsd <= reserve100 * 100 + reserve10 * 10 + reserve1 &&
+            srcUsd % 100 <= reserve10 * 10 + reserve1 &&
+            srcUsd % 10 <= reserve1;
+        if (hasReserve == false) {
             System.out.println("Банкнот не хватает для выдачи нужной суммы");
         } else {
             int num100 = srcUsd / 100;
