@@ -4,15 +4,15 @@ public class CyclesTheme {
         System.out.println("\n1.Подсчет суммы четных и нечетных чисел\n");
         int sumEvens = 0;
         int sumOdds = 0;
-        int num = -10;
+        int counter = -10;
         do {
-            if (num % 2 == 0) {
-                sumEvens += num;
+            if (counter % 2 == 0) {
+                sumEvens += counter;
             } else {
-                sumOdds += num;
+                sumOdds += counter;
             }
-            num++;
-        } while (num <= 21);
+            counter++;
+        } while (counter <= 21);
         System.out.println("В промежутке [-10, 21] сумма четных чисел = " + sumEvens +
                 ", а нечетных = " + sumOdds);
 
@@ -23,38 +23,29 @@ public class CyclesTheme {
         if (num1 == num2 && num1 == num3) {
             System.out.println("Интервал равен 0");
         } else {
-            int maxNum = num1;
-            int minNum = num2 > num3 ? num3 : num2;
-            if (num2 >= num1 && num2 >= num3) {
-                maxNum = num2;
-                minNum = num1 > num3 ? num3 : num1;
-            } else if (num3 >= num1 && num3 >= num2) {
-                maxNum = num3;
-                minNum = num1 > num2 ? num2 : num1;
-            }
-            String intervalNums = "";
+            int maxNum = num1 > num2 ? num1 : num2;
+            maxNum = maxNum > num3 ? maxNum : num3;
+            int minNum = num1 < num2 ? num1 : num2;
+            minNum = minNum < num3 ? minNum : num3;
+            System.out.print("(" + minNum + "," + maxNum + ")");
             for (int i = maxNum - 1; i > minNum; i--) {
-                intervalNums += i + " ";
+                System.out.print(" " + i);
             }
-            System.out.println("(" + minNum + "," + maxNum + ") " + intervalNums);
         }
 
-        System.out.println("\n3.Вывод реверсивного числа и суммы его цифр\n");
-        num = 1234;
+        System.out.println("\n\n3.Вывод реверсивного числа и суммы его цифр\n");
+        int num = 1234;
+        System.out.println(num);
         int multiple = 1;
-        int reverseMultiple = 1;
         int sumNums = 0;
         int reverseNum = 0;
         while (multiple <= num) {
-            sumNums += num / multiple % 10;
+            reverseNum = num / multiple % 10;
+            System.out.print(reverseNum);
+            sumNums += reverseNum;
             multiple *= 10;
         }
-        while (multiple > 1) {
-            multiple /= 10;
-            reverseNum += (num / multiple % 10) * reverseMultiple;
-            reverseMultiple *= 10;
-        }
-        System.out.println(num + "\n" + reverseNum + "\n" + sumNums);
+        System.out.println("\n" + sumNums);
 
         System.out.println("\n4.Вывод чисел на консоль в несколько строк\n");
         num1 = 1;
@@ -95,9 +86,9 @@ public class CyclesTheme {
             }
             multiple *= 10;
         }
-        String even = countNums % 2 == 0 ? "четное" : "нечетное";
+        String state = countNums % 2 == 0 ? "четное" : "нечетное";
         System.out.printf("Число %d содержит %d (%s количество) %d",
-                 num, countNums, even, searchNum);
+                 num, countNums, state, searchNum);
 
         System.out.println("\n\n6.Отображение фигур в консоли\n");
         char star = '*';
@@ -156,7 +147,7 @@ public class CyclesTheme {
 
         System.out.println("\n8.Проверка, является ли число палиндромом\n");
         num = 1234321;
-        reverseMultiple = 0;
+        int reverseMultiple = 0;
         for (int i = 1; i < num; i *= 10) {
             reverseMultiple = i;
         }
