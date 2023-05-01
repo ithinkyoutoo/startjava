@@ -43,7 +43,7 @@ public class IfElseStatementTheme {
         System.out.println("\n3.Проверка числа\n");
         num1 = 36;
         if (num1 == 0) {
-            System.out.println("Число равно нулю");
+            System.out.println("Число " + num1);
         } else {
             String state = "нечетным";
             if (num1 % 2 == 0) {
