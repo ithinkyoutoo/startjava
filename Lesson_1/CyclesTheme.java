@@ -36,109 +36,104 @@ public class CyclesTheme {
         System.out.println("\n\n3.Вывод реверсивного числа и суммы его цифр\n");
         int num = 1234;
         System.out.println(num);
-        int multiple = 1;
-        int sumNums = 0;
-        int reverseNum = 0;
-        while (multiple <= num) {
-            reverseNum = num / multiple % 10;
-            System.out.print(reverseNum);
-            sumNums += reverseNum;
-            multiple *= 10;
+        int remainder = 0;
+        int sumDigits = 0;
+        while (num > 0) {
+            remainder = num % 10;
+            System.out.print(remainder);
+            sumDigits += remainder;
+            num /= 10;
         }
-        System.out.println("\n" + sumNums);
+        System.out.println("\n" + sumDigits);
 
         System.out.println("\n4.Вывод чисел на консоль в несколько строк\n");
-        num1 = 1;
-        num2 = 23;
-        int intervalNum1 = 2;
-        int intervalNum2 = 2;
-        for (int i = num1; i > 0 || i < 0; i /= 10) {
-            intervalNum1++;
+        counter = 1;
+        int countOfDigitsCounter = 0;
+        for (int i = counter; i > 0 || i < 0; i /= 10) {
+            countOfDigitsCounter++;
         }
-        for (int j = num2; j > 0 || j < 0; j /= 10) {
-            intervalNum2++;
+        int endOfSemiInterval = 24;
+        int countOfDigitsEndOfSemiInterval = 0;
+        for (int i = endOfSemiInterval; i > 0 || i < 0; i /= 10) {
+            countOfDigitsEndOfSemiInterval++;
         }
-        int interval = intervalNum2 > intervalNum1 ? intervalNum2 : intervalNum1;
-        int step = 2;
+        int countOfDigits = countOfDigitsCounter > countOfDigitsEndOfSemiInterval ?
+                countOfDigitsCounter : countOfDigitsEndOfSemiInterval;
+        int distanceBetweenNums = 2 + countOfDigits;
         int numsInLine = 5;
-        for (int i = 0; i >= 0; i = num2 - num1) {
+        for (int i = 0; i < endOfSemiInterval; i = counter) {
             for (int j = 0; j < numsInLine; j++) {
-                if (num2 >= num1) {
-                    System.out.printf("%" + interval + "d", num1);
+                if (counter < endOfSemiInterval) {
+                    System.out.printf("%" + distanceBetweenNums + "d", counter);
                 } else {
-                    System.out.printf("%" + interval + "d", 0);
+                    System.out.printf("%" + distanceBetweenNums + "d", 0);
                 }
-                num1 += step;
+                counter += 2;
             }
             System.out.println();
         }
 
         System.out.println("\n5.Проверка количества двоек на четность/нечетность\n");
         num = 3242592;
-        int searchNum = 2;
-        int multipleNum = 0;
-        int countNums = 0;
-        multiple = 1;
-        while (multiple <= num) {
-            multipleNum = num / multiple % 10;
-            if (multipleNum == searchNum) {
-                countNums += 1;
+        int searchDigit = 2;
+        int countTwos = 0;
+        int multiple = 1;
+        while (multiple < num) {
+            remainder = num / multiple % 10;
+            if (remainder == searchDigit) {
+                countTwos++;
             }
             multiple *= 10;
         }
-        String state = countNums % 2 == 0 ? "четное" : "нечетное";
+        String state = countTwos % 2 == 0 ? "четное" : "нечетное";
         System.out.printf("Число %d содержит %d (%s количество) %d",
-                 num, countNums, state, searchNum);
+                 num, countTwos, state, searchDigit);
 
         System.out.println("\n\n6.Отображение фигур в консоли\n");
-        char star = '*';
-        int numsStar = 10;
-        int numsLine = 5;
-        for (int i = 0; i < numsLine; i++) {
-            for (int j = 0; j < numsStar; j++) {
-                System.out.print(star);
+        int numOfChars = 10;
+        int numOfLines = 5;
+        for (int i = 0; i < numOfLines; i++) {
+            for (int j = 0; j < numOfChars; j++) {
+                System.out.print("*");
             }
             System.out.println();
         }
         System.out.println();
-        char hash = '#';
-        int numsHash = 5;
-        numsLine = numsHash;
-        while (numsLine > 0) {
-            while (numsHash > 0) {
-                System.out.print(hash);
-                numsHash--;
+
+        numOfChars = 5;
+        numOfLines = numOfChars;
+        while (numOfLines > 0) {
+            while (numOfChars > 0) {
+                System.out.print("#");
+                numOfChars--;
             }
-            numsLine--;
-            numsHash = numsLine;
+            numOfLines--;
+            numOfChars = numOfLines;
             System.out.println();
         }
         System.out.println();
-        char dollarSign = '$';
-        int numsDollarSign = 0;
-        int countDollarSign = 0;
-        numsLine = 5;
+
+        int countOfChars = 0;
+        numOfLines = 5;
         do {
-            if (numsLine > countDollarSign) {
-                countDollarSign++;
+            if (numOfLines > countOfChars) {
+                countOfChars++;
             } else {
-                countDollarSign--;
+                countOfChars--;
             }
-            numsDollarSign = countDollarSign;
+            numOfChars = countOfChars;
             do {
-                System.out.print(dollarSign);
-                numsDollarSign--;
-            } while (numsDollarSign > 0);
+                System.out.print("$");
+                numOfChars--;
+            } while (numOfChars > 0);
             System.out.println();
-            numsLine--;
-        } while (numsLine > 0);
+            numOfLines--;
+        } while (numOfLines > 0);
 
         System.out.println("\n7.Отображение ASCII-символов\n");
-        char characters = 0;
-        for (int i = characters; i <= 122; i++) {
-            if (i == 0) {
-                System.out.println(" Dec  Char");
-            } else if (i <= '/' && i % 2 == 1) {
+        System.out.println(" Dec  Char");
+        for (int i = 0; i <= 122; i++) {
+            if (i <= '/' && i % 2 == 1) {
                 System.out.printf("%4d%6c%n", (int) i, i);
             } else if (i >= 'a' && i <= 'z' && i % 2 == 0) {
                 System.out.printf("%4d%6c%n", (int) i, i);
@@ -151,7 +146,7 @@ public class CyclesTheme {
         for (int i = 1; i < num; i *= 10) {
             reverseMultiple = i;
         }
-        reverseNum = 0;
+        int reverseNum = 0;
         multiple = 0;
         for (int j = 1; j < num; j *= 10) {
             multiple = j;
@@ -166,18 +161,18 @@ public class CyclesTheme {
 
         System.out.println("\n9.Определение, является ли число счастливым\n");
         num = 823373;
-        countNums = 0;
         multiple = 0;
+        countOfDigits = 0;
         for (int i = 1; i < num; i *= 10) {
-            countNums++;
             multiple = i;
+            countOfDigits++;
         }
         int sumLeftHalfNums = 0;
         int sumRightHalfNums = 0;
         int leftHalfNums = 0;
         int rightHalfNums = 0;
-        for (int j = 1; j <= countNums; j++) {
-            if (j <= countNums / 2) {
+        for (int j = 1; j <= countOfDigits; j++) {
+            if (j <= countOfDigits / 2) {
                 sumLeftHalfNums += num / multiple % 10;
                 leftHalfNums += (num / multiple % 10) * multiple;
             } else {
@@ -187,12 +182,11 @@ public class CyclesTheme {
             }
             multiple /= 10;
         }
-        String happy = "";
-        happy = sumLeftHalfNums == sumRightHalfNums ? "является" : "не является";
+        state = sumLeftHalfNums == sumRightHalfNums ? "является" : "не является";
         System.out.println("Число " + num + "\n" +
                 "Сумма цифр левой половины " + leftHalfNums + " = " + sumLeftHalfNums + "\n" +
                 "Сумма цифр правой половины " + rightHalfNums + " = " + sumRightHalfNums + "\n" +
-                "Число " + happy + " счастливым");
+                "Число " + state + " счастливым");
 
         System.out.println("\n10.Вывод таблицы умножения Пифагора\n");
         num1 = 2;
