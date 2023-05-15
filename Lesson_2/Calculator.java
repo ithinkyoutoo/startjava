@@ -3,7 +3,6 @@ public class Calculator {
     private int num1;
     private int num2;
     private String sign;
-    private String answer;
 
     public void setNum1(int num1) {
         this.num1 = num1;
@@ -13,52 +12,20 @@ public class Calculator {
         this.num2 = num2;
     }
 
-    public void setSign(String sign) {
+    public boolean setSign(String sign) {
         switch (sign) {
             case "+":
-                this.sign = sign;
-                break;
             case "-":
-                this.sign = sign;
-                break;
             case "*":
-                this.sign = sign;
-                break;
             case "/":
-                this.sign = sign;
-                break;
             case "^":
-                this.sign = sign;
-                break;
             case "%":
                 this.sign = sign;
-                break;
+                return false;
             default:
-                this.sign = "";
                 System.out.println("Введенная мат. операция не поддерживается");
+                return true;
         }
-    }
-
-    public String getSign() {
-        return sign;
-    }
-
-    public void setAnswer(String answer) {
-        switch (answer) {
-            case "yes":
-                this.answer = "yes";
-                break;
-            case "no":
-                this.answer = "no";
-                break;
-            default:
-                this.answer = "";
-                break;
-        }
-    }
-
-    public String getAnswer() {
-        return answer;
     }
 
     public void calculate() {
