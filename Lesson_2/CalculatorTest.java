@@ -20,18 +20,7 @@ public class CalculatorTest {
             do {
                 System.out.print("Хотите продолжить вычисления? [yes/no]: ");
                 answer = scan.nextLine();
-                switch (answer) {
-                    case "yes":
-                        answer = "yes";
-                        break;
-                    case "no":
-                        answer = "no";
-                        break;
-                    default:
-                        answer = "";
-                        break;
-                }
-            } while (answer.equals(""));
-        } while (answer.equals("yes"));
+            } while ("yes".equals(answer) == false && "no".equals(answer) == false);
+        } while ("yes".equals(answer));
     }
 }
