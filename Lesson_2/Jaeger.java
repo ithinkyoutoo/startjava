@@ -1,0 +1,114 @@
+public class Jaeger {
+
+    String modelName;
+    String mark;
+    String origin;
+    float height;
+    float weight;
+    int strength;
+    int armor;
+
+    public Jaeger() {
+    }
+
+    public Jaeger(String modelName,
+            String mark,
+            String origin,
+            float height,
+            float weight,
+            int strength,
+            int armor) {
+        this.modelName = modelName;
+        this.mark = mark;
+        this.origin = origin;
+        this.height = height;
+        this.weight = weight;
+        this.strength = strength;
+        this.armor = armor;
+    }
+
+    public String getModelName() {
+        return modelName;
+    }
+
+    public void setModelName(String modelName) {
+        this.modelName = modelName;
+    }
+
+    public String getMark() {
+        return mark;
+    }
+
+    public void setMark(String mark) {
+        this.mark = mark;
+    }
+
+    public String getOrigin() {
+        return origin;
+    }
+
+    public void setOrigin(String origin) {
+        this.origin = origin;
+    }
+
+    public float getHeight() {
+        return height;
+    }
+
+    public void setHeight(float height) {
+        this.height = height;
+    }
+
+    public float getWeight() {
+        return weight;
+    }
+
+    public void setWeight(float weight) {
+        this.weight = weight;
+    }
+
+    public int getStrength() {
+        return strength;
+    }
+
+    public void setStrength(int strength) {
+        this.strength = strength;
+    }
+
+    public int getArmor() {
+        return armor;
+    }
+
+    public void setArmor(int armor) {
+        this.armor = armor;
+    }
+
+    public boolean drift() {
+        System.out.print(modelName + ": Статус входа в дрифт: ");
+        return true;
+    }
+
+    public void move() {
+        System.out.println(modelName + ": Вышел на позицию\n");
+    }
+
+    public void useWeapon() {
+        if ("Gipsy Danger".equals(modelName)) {
+            System.out.println(modelName + ": I-19 Plasmacaster и мечи GD6 активированы\n");
+        } else {
+            System.out.println(modelName +
+                    ": IB22 Plasmacaster и Thundercloud Formation активированы\n");
+        }
+    }
+
+    public void attack() {
+        switch (modelName) {
+            case "Gipsy Danger":
+                System.out.println(modelName + ": Otachi уничтожен!\n");
+                break;
+            default:
+                System.out.println(modelName + ": Промах! Otachi атакует меня!" +
+                    " Есть повреждение брони\n");
+        }
+    }
+}
