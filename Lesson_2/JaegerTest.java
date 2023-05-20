@@ -2,7 +2,6 @@ public class JaegerTest {
 
     public static void main(String[] args) {
         Jaeger gipsy = new Jaeger();
-        Jaeger typhoon = new Jaeger("Crimson Typhoon", "Mark-4", "China", 76.2f, 1.722f, 8, 6);
         gipsy.setModelName("Gipsy Danger");
         gipsy.setMark("Mark-3");
         gipsy.setOrigin("USA");
@@ -10,6 +9,8 @@ public class JaegerTest {
         gipsy.setWeight(1.980f);
         gipsy.setStrength(8);
         gipsy.setArmor(6);
+
+        Jaeger typhoon = new Jaeger("Crimson Typhoon", "Mark-4", "China", 76.2f, 1.722f, 8, 6);
         System.out.printf("%nОбнаружен кайдзю Otachi! Джагерам %s и %s приготовиться%n%n",
                 gipsy.getModelName(), typhoon.getModelName());
         System.out.println(gipsy.drift() + "\n");

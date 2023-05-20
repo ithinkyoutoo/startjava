@@ -1,23 +1,18 @@
 public class Jaeger {
 
-    String modelName;
-    String mark;
-    String origin;
-    float height;
-    float weight;
-    int strength;
-    int armor;
+    private String modelName;
+    private String mark;
+    private String origin;
+    private float height;
+    private float weight;
+    private int strength;
+    private int armor;
 
     public Jaeger() {
     }
 
-    public Jaeger(String modelName,
-            String mark,
-            String origin,
-            float height,
-            float weight,
-            int strength,
-            int armor) {
+    public Jaeger(String modelName, String mark, String origin,
+            float height, float weight, int strength, int armor) {
         this.modelName = modelName;
         this.mark = mark;
         this.origin = origin;
@@ -102,12 +97,10 @@ public class Jaeger {
     }
 
     public void attack() {
-        switch (modelName) {
-            case "Gipsy Danger":
-                System.out.println(modelName + ": Otachi уничтожен!\n");
-                break;
-            default:
-                System.out.println(modelName + ": Промах! Otachi атакует меня!" +
+        if ("Gipsy Danger".equals(modelName)) {
+            System.out.println(modelName + ": Otachi уничтожен!\n");
+        } else {
+            System.out.println(modelName + ": Промах! Otachi атакует меня!" +
                     " Есть повреждение брони\n");
         }
     }
