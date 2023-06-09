@@ -1,5 +1,10 @@
 # .class файлы
 out/
-# src/../../lesson_2_3/calculator
+
+# src/../../lesson_2_3_4/calculator
 options
 optionsj
+
+# IDEA
+.idea/
+*.iml
