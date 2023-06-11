@@ -146,16 +146,16 @@ public class ArrayTheme {
         print(copyStringArr);
     }
 
-    private void print(String[] stringArr) {
-        for (String string : stringArr) {
+    private void print(String[] array) {
+        for (String string : array) {
             System.out.print(string + " ");
         }
         System.out.println();
     }
 
-    private void print(int[] intArr) {
-        int length = intArr.length;
-        for (int num : intArr) {
+    private void print(int[] array) {
+        int length = array.length;
+        for (int num : array) {
             System.out.print(" " + num);
             length--;
             if (length % 10 == 0) {
