@@ -10,7 +10,7 @@ public class ArrayTheme {
         array.delete();
         array.printReverseStairs();
         array.generateUniqueNums();
-        array.copyFullStrings();
+        array.copyNonEmptyStrings();
     }
 
     private void reverse() {
@@ -19,9 +19,8 @@ public class ArrayTheme {
         print(intArr);
         int length = intArr.length;
         for (int i = 0; i < length; i++) {
-            length--;
             int tempNum = intArr[i];
-            intArr[i] = intArr[length];
+            intArr[i] = intArr[--length];
             intArr[length] = tempNum;
         }
         print(intArr);
@@ -53,9 +52,9 @@ public class ArrayTheme {
         }
         print(randomDoubles);
         int countZeros = 0;
-        double middleNum = randomDoubles[length / 2];
+        double middleCellValue = randomDoubles[length / 2];
         for (int i = 0; i < length; i++) {
-            if (randomDoubles[i] > middleNum) {
+            if (randomDoubles[i] > middleCellValue) {
                 randomDoubles[i] = 0;
                 countZeros++;
             }
@@ -66,11 +65,7 @@ public class ArrayTheme {
 
     private void print(double[] array) {
         for (int i = 0; i < array.length; i++) {
-            if (array[i] == 0) {
-                System.out.printf("%8.3f", array[i]);
-            } else {
-                System.out.printf("%8.3f", array[i]);
-            }
+            System.out.printf("%8.3f", array[i]);
             if (i == array.length / 2) {
                 System.out.println();
             }
@@ -80,14 +75,14 @@ public class ArrayTheme {
 
     private void printReverseStairs() {
         System.out.println("\n4. Вывод элементов массива лесенкой в обратном порядке\n");
-        char[] capitalLetters = new char[26];
-        int length = capitalLetters.length;
+        char[] alphabet = new char[26];
+        int length = alphabet.length;
         for (char i = 0; i < length; i++) {
-            capitalLetters[i] = (char) ('A' + i);
+            alphabet[i] = (char) ('A' + i);
         }
         String result = "";
         for (int i = 0; i < length; i++) {
-            result += capitalLetters[length - (1 + i)];
+            result += alphabet[length - (1 + i)];
             System.out.println(result);
         }
     }
@@ -118,31 +113,30 @@ public class ArrayTheme {
         print(uniqueNums);
     }
 
-    private void copyFullStrings() {
+    private void copyNonEmptyStrings() {
         System.out.println("\n6. Копирование не пустых строк\n");
-        String[] stringArr = {"    ", "AA", "", "BBB", "CC", "D", "    ", "E", "FF", "G", ""};
-        print(stringArr);
+        String[] srcStrings = {"    ", "AA", "", "BBB", "CC", "D", "    ", "E", "FF", "G", ""};
+        print(srcStrings);
         int length = 0;
-        for (String string : stringArr) {
+        for (String string : srcStrings) {
             if (!string.isBlank()) {
                 length++;
             }
         }
-        String[] fullStrings = new String[length];
+        String[] nonEmptyStrings = new String[length];
         int index = 0;
         int countFullStrings = 0;
-        for (int i = 0; i < stringArr.length; i++) {
-            if (!stringArr[i].isBlank()) {
+        for (int i = 0; i < srcStrings.length; i++) {
+            if (!srcStrings[i].isBlank()) {
                 index++;
                 countFullStrings++;
-            }
-            if (stringArr[i].isBlank()) {
-                System.arraycopy(stringArr, i - countFullStrings,
-                        fullStrings, index - countFullStrings, countFullStrings);
+            } else {
+                System.arraycopy(srcStrings, i - countFullStrings,
+                        nonEmptyStrings, index - countFullStrings, countFullStrings);
                 countFullStrings = 0;
             }
         }
-        print(fullStrings);
+        print(nonEmptyStrings);
     }
 
     private void print(String[] array) {
