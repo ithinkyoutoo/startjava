@@ -8,8 +8,8 @@ public class Calculator {
 
     public void setMathExpression(String string) {
         String[] partsMathExpression = string.split(" ");
-        this.num1 = Integer.parseInt(partsMathExpression[0]);
-        this.num2 = Integer.parseInt(partsMathExpression[2]);
+        num1 = Integer.parseInt(partsMathExpression[0]);
+        num2 = Integer.parseInt(partsMathExpression[2]);
         setSign((partsMathExpression[1]));
     }
 
