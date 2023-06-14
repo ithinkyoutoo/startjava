@@ -6,15 +6,14 @@ public class Calculator {
     private int num2;
     private String sign;
 
-    public void setNum1(int num1) {
-        this.num1 = num1;
+    public void setMathExpression(String string) {
+        String[] partsMathExpression = string.split(" ");
+        this.num1 = Integer.parseInt(partsMathExpression[0]);
+        this.num2 = Integer.parseInt(partsMathExpression[2]);
+        setSign((partsMathExpression[1]));
     }
 
-    public void setNum2(int num2) {
-        this.num2 = num2;
-    }
-
-    public boolean setSign(String sign) {
+    private void setSign(String sign) {
         switch (sign) {
             case "+":
             case "-":
@@ -23,37 +22,40 @@ public class Calculator {
             case "^":
             case "%":
                 this.sign = sign;
-                return false;
-            default:
-                System.out.println("Введенная мат. операция не поддерживается");
-                return true;
+                break;
         }
     }
 
-    public void calculate() {
-        int result = 1;
+    public double calculate() {
+        double result = 0;
         switch (sign) {
             case "+":
-                result = num1 + num2;
+                result = Math.addExact(num1, num2);
                 break;
             case "-":
-                result = num1 - num2;
+                result = Math.subtractExact(num1, num2);
                 break;
             case "*":
-                result = num1 * num2;
+                result = Math.multiplyExact(num1, num2);
                 break;
             case "/":
-                result = num1 / num2;
+                result = Math.floorDiv(num1, num2);
                 break;
             case "^":
-                for (int i = 0; i < num2; i++) {
-                    result *= num1;
-                }
+                result = Math.pow(num1, num2);
                 break;
             case "%":
-                result = num1 % num2;
+                result = Math.floorMod(num1, num2);
                 break;
         }
-        System.out.println("Результат: " + result);
+        return result;
+    }
+
+    public void printResult(double num) {
+        if (num % Math.floor(num) == 0 || num == 0) {
+            System.out.printf("Результат: %.0f%n", num);
+        } else {
+            System.out.printf("Результат: %.3f%n", num);
+        }
     }
 }
