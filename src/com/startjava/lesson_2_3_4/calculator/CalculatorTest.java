@@ -9,10 +9,15 @@ public class CalculatorTest {
         Calculator calculator = new Calculator();
         String answer = "yes";
         do {
+            double result = 0;
             if ("yes".equals(answer)) {
                 System.out.print("Введите математическое выражение: ");
-                calculator.setMathExpression(scan.nextLine());
-                calculator.printResult(calculator.calculate());
+                result = calculator.calculate(scan.nextLine());
+            }
+            if (result % 1 == 0) {
+                System.out.printf("Результат: %.0f%n", result);
+            } else {
+                System.out.printf("Результат: %.3f%n", result);
             }
             System.out.print("Хотите продолжить вычисления? [yes/no]: ");
             answer = scan.nextLine();
