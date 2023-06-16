@@ -2,12 +2,11 @@ package com.startjava.lesson_2_3_4.calculator;
 
 public class Calculator {
 
-    public double calculate(String string) {
-        String[] partsMathExpression = string.split(" ");
-        int num1 = Integer.parseInt(partsMathExpression[0]);
-        int num2 = Integer.parseInt(partsMathExpression[2]);
-        String sign = partsMathExpression[1];
-        double errorNum = 0;
+    public double calculate(String expression) {
+        String[] elements = expression.split(" ");
+        int num1 = Integer.parseInt(elements[0]);
+        int num2 = Integer.parseInt(elements[2]);
+        String sign = elements[1];
         switch (sign) {
             case "+":
                 return Math.addExact(num1, num2);
@@ -23,7 +22,7 @@ public class Calculator {
                 return Math.floorMod(num1, num2);
             default:
                 System.out.println("Введенный знак не поддерживается");
-                return errorNum;
+                return 0;
         }
     }
 }
