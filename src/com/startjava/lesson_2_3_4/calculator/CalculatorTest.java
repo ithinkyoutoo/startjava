@@ -19,11 +19,11 @@ public class CalculatorTest {
         } while (!"no".equals(answer));
     }
 
-    private static void print(double num) {
-        if (num % 1 == 0) {
-            System.out.printf("Результат: %.0f%n", num);
+    private static void print(double result) {
+        if (result % 1 == 0) {
+            System.out.printf("Результат: %.0f%n", result);
         } else {
-            System.out.printf("Результат: %.3f%n", num);
+            System.out.printf("Результат: %.3f%n", result);
         }
     }
 }
