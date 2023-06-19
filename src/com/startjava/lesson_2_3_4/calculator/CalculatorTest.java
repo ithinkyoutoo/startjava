@@ -6,24 +6,24 @@ public class CalculatorTest {
 
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
-        Calculator calculator = new Calculator();
+
         String answer = "yes";
         do {
+            boolean hasResult = true;
             if ("yes".equals(answer)) {
                 System.out.print("Введите математическое выражение: ");
-                double result = calculator.calculate(scan.nextLine());
-                print(result);
+                try {
+                    double result = Calculator.calculate(scan.nextLine());
+                    System.out.printf("Результат: " + (result % 1 == 0 ? "%.0f%n" : "%.3f%n"), result);
+                } catch (Calculator.NegativeNumException | NumberFormatException e) {
+                    System.out.println("Числа дожны быть целыми и положительными, используйте корректные значения");
+                    hasResult = false;
+                }
             }
-            System.out.print("Хотите продолжить вычисления? [yes/no]: ");
-            answer = scan.nextLine();
+            if (hasResult) {
+                System.out.print("Хотите продолжить вычисления? [yes/no]: ");
+                answer = scan.nextLine();
+            }
         } while (!"no".equals(answer));
-    }
-
-    private static void print(double result) {
-        if (result % 1 == 0) {
-            System.out.printf("Результат: %.0f%n", result);
-        } else {
-            System.out.printf("Результат: %.3f%n", result);
-        }
     }
 }
