@@ -15,8 +15,8 @@ public class CalculatorTest {
                 try {
                     double result = Calculator.calculate(scan.nextLine());
                     System.out.printf("Результат: " + (result % 1 == 0 ? "%.0f%n" : "%.3f%n"), result);
-                } catch (Calculator.NegativeNumException | NumberFormatException e) {
-                    System.out.println("Числа дожны быть целыми и положительными, используйте корректные значения");
+                } catch (Calculator.PositiveNumException | NumberFormatException e) {
+                    System.out.println("Числа должны быть целыми и положительными, используйте корректные значения");
                     hasResult = false;
                 }
             }
