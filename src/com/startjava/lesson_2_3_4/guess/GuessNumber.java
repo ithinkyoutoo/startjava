@@ -20,11 +20,15 @@ public class GuessNumber {
         System.out.println("\nКомпьютер загадал число от 1 до 100, попробуйте отгадать!\n" +
                 "У каждого игрока по " + attempts + " попыток");
         Player currentPlayer = player1;
+        if (currentPlayer.getAttemptNum() != 0) {
+            clearPlayersNums();
+        }
         do {
             System.out.print("\n" + currentPlayer.getName() + " введите число: ");
-            currentPlayer.setNum(scan.nextInt());
+            currentPlayer.addNum(scan.nextInt());
             scan.nextLine();
-            if (checkNum(currentPlayer.getNum(), hiddenNum)) {
+            currentPlayer.addAttemptNum();
+            if (isGuessed(currentPlayer.getNum(), hiddenNum)) {
                 System.out.printf("Игрок %s угадал число %d c %d попытки!%n%n",
                         currentPlayer.getName(),
                         currentPlayer.getNum(),
@@ -39,7 +43,12 @@ public class GuessNumber {
         printPlayersNums();
     }
 
-    private boolean checkNum(int playerNum, int hiddenNum) {
+    private void clearPlayersNums() {
+        player1.clear();
+        player2.clear();
+    }
+
+    private boolean isGuessed(int playerNum, int hiddenNum) {
         if (playerNum == hiddenNum) {
             return true;
         } else if (playerNum > hiddenNum) {
@@ -53,26 +62,20 @@ public class GuessNumber {
     private Player changePlayer(Player player) {
         if (player == player1) {
             return player2;
-        } else {
-            return player1;
         }
+        return player1;
     }
 
     private void printPlayersNums() {
-        print(player1.getName(), player1.getPlayerNums());
-        print(player2.getName(), player2.getPlayerNums());
+        print(player1.getName(), player1.getAllNums());
+        print(player2.getName(), player2.getAllNums());
     }
 
     private void print(String playerName, int[] playerNums) {
-        String result = "";
+        System.out.print("Числа игрока " + playerName + ":");
         for (int num : playerNums) {
-            result += num + " ";
+            System.out.print(" " + num);
         }
-        System.out.println("Числа игрока " + playerName + ": " + result);
-    }
-
-    public void resetResult() {
-        player1.resetPlayerNums();
-        player2.resetPlayerNums();
+        System.out.println();
     }
 }
