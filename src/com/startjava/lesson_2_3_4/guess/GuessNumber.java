@@ -20,26 +20,25 @@ public class GuessNumber {
         System.out.println("\nКомпьютер загадал число от 1 до 100, попробуйте отгадать!\n" +
                 "У каждого игрока по " + attempts + " попыток");
         Player currentPlayer = player1;
-        if (currentPlayer.getAttemptNum() != 0) {
+        if (currentPlayer.getAttempt() != 0) {
             clearPlayersNums();
         }
         do {
             System.out.print("\n" + currentPlayer.getName() + " введите число: ");
             currentPlayer.addNum(scan.nextInt());
             scan.nextLine();
-            currentPlayer.addAttemptNum();
             if (isGuessed(currentPlayer.getNum(), hiddenNum)) {
                 System.out.printf("Игрок %s угадал число %d c %d попытки!%n%n",
                         currentPlayer.getName(),
                         currentPlayer.getNum(),
-                        currentPlayer.getAttemptNum());
+                        currentPlayer.getAttempt());
                 break;
             }
-            if (currentPlayer.getAttemptNum() == attempts) {
+            if (currentPlayer.getAttempt() == attempts) {
                 System.out.println("У " + currentPlayer.getName() + " закончились попытки");
             }
-            currentPlayer = changePlayer(currentPlayer);
-        } while (currentPlayer.getAttemptNum() < attempts);
+            currentPlayer = currentPlayer == player1 ? player2 : player1;
+        } while (currentPlayer.getAttempt() < attempts);
         printPlayersNums();
     }
 
@@ -51,19 +50,13 @@ public class GuessNumber {
     private boolean isGuessed(int playerNum, int hiddenNum) {
         if (playerNum == hiddenNum) {
             return true;
-        } else if (playerNum > hiddenNum) {
+        }
+        if (playerNum > hiddenNum) {
             System.out.println("Число " + playerNum + " больше того, что загадал компьютер");
         } else {
             System.out.println("Число " + playerNum + " меньше того, что загадал компьютер");
         }
         return false;
-    }
-
-    private Player changePlayer(Player player) {
-        if (player == player1) {
-            return player2;
-        }
-        return player1;
     }
 
     private void printPlayersNums() {

@@ -18,17 +18,14 @@ public class Player {
 
     public void addNum(int num) {
         nums[attempt] = num;
+        attempt++;
     }
 
     public int getNum() {
         return nums[attempt - 1];
     }
 
-    public void addAttemptNum() {
-        attempt++;
-    }
-
-    public int getAttemptNum() {
+    public int getAttempt() {
         return attempt;
     }
 
