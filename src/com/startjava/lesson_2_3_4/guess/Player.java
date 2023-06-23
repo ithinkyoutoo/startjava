@@ -17,8 +17,12 @@ public class Player {
     }
 
     public void addNum(int num) {
-        nums[attempt] = num;
-        attempt++;
+        if (num > 0 && num <= 100) {
+            nums[attempt] = num;
+            attempt++;
+        } else {
+            throw new NumException();
+        }
     }
 
     public int getNum() {
@@ -36,5 +40,8 @@ public class Player {
     public void clear() {
         Arrays.fill(nums, 0, attempt, 0);
         attempt = 0;
+    }
+
+    static class NumException extends RuntimeException {
     }
 }
