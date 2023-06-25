@@ -1,79 +1,78 @@
 package com.startjava.lesson_2_3_4.guess;
 
 import java.util.Scanner;
+import java.util.Arrays;
 
 public class GuessNumber {
 
-    static final int ATTEMPTS = 10;
-    static final int DRAW_LOTS_ROUNDS = 3;
+    private static final int ROUNDS_LIMIT = 3;
+    private static final int ATTEMPTS = 10;
 
-    private Player[] players;
-    private Scanner scan;
+    private final Scanner scan;
+    private final Player[] players;
+    private final int len = Player.COUNT_PLAYERS;
 
     public GuessNumber(Scanner scan, Player... players) {
         this.scan = scan;
+        for (int i = 0; i < len; i++) {
+            players[i] = new Player(scan.nextLine());
+        }
         this.players = players;
     }
 
     public void play() {
-        int hiddenNum = 1 + (int) (Math.random() * 100);
-        System.out.println("\nКомпьютер загадал число от 1 до 100, попробуйте отгадать!\n" +
-                "У каждого игрока по " + ATTEMPTS + " попыток");
-        Player currentPlayer = drawLots(players);
-        if (currentPlayer.getAttempt() != 0) {
-            clearPlayersNums();
+        drawLots(players);
+        for (int i = 1; i <= ROUNDS_LIMIT; i++) {
+            System.out.println("\nРаунд " + i);
+            int hiddenNum = createHiddenNum();
+            boolean hasWin = false;
+            do {
+                for (Player player : players) {
+                    enterNum(player);
+                    if (isGuessed(player.getNum(), hiddenNum)) {
+                        System.out.printf("Игрок %s угадал число %d c %d попытки!%n",
+                                    player.getName(),
+                                    player.getNum(),
+                                    player.getAttempt());
+                        player.addWin();
+                        hasWin = true;
+                        break;
+                    }
+                    if (player.getAttempt() == ATTEMPTS) {
+                        System.out.println("У " + player.getName() + " закончились попытки");
+                    }
+                }
+            } while (!hasWin && players[len - 1].getAttempt() != ATTEMPTS);
+            printPlayersNums();
         }
-        do {
-            System.out.print("\n" + currentPlayer.getName() + " введите число: ");
-            enterNum(currentPlayer);
-            if (isGuessed(currentPlayer.getNum(), hiddenNum)) {
-                System.out.printf("Игрок %s угадал число %d c %d попытки!%n%n",
-                        currentPlayer.getName(),
-                        currentPlayer.getNum(),
-                        currentPlayer.getAttempt());
-                break;
-            }
-            if (currentPlayer.getAttempt() == ATTEMPTS) {
-                System.out.println("У " + currentPlayer.getName() + " закончились попытки");
-            }
-            currentPlayer = changePlayer(currentPlayer);
-        } while (currentPlayer.getAttempt() < ATTEMPTS);
-        printPlayersNums();
+        checkWinner(players);
     }
 
-    private Player drawLots(Player[] players) {
-        for (int i = 1; i <= DRAW_LOTS_ROUNDS; i++) {
-            for (int j = players.length - 1; j > 0; j--) {
-                int index = (int) (Math.random() * 3);
-                Player tempPlayer = players[j];
-                players[j] = players[index];
-                players[index] = tempPlayer;
-            }
+    private void drawLots(Player[] players) {
+        for (int i = len - 1; i > 0; i--) {
+            int index = (int) (Math.random() * i);
+            Player tempPlayer = players[i];
+            players[i] = players[index];
+            players[index] = tempPlayer;
         }
         System.out.print("\nПо итогу жеребьевки, порядок игроков в игре следующий:");
         for (Player player : players) {
             System.out.print(" " + player.getName());
         }
         System.out.println();
-        return players[0];
     }
 
-    private void clearPlayersNums() {
-        for (Player player : players) {
-            player.clear();
-        }
+    private int createHiddenNum() {
+        System.out.println("\nКомпьютер загадал число от 1 до 100, попробуйте отгадать!\n" +
+                "У каждого игрока по " + ATTEMPTS + " попыток");
+        return 1 + (int) (Math.random() * 100);
     }
 
     private void enterNum(Player player) {
         do {
-            try {
-                player.addNum(scan.nextInt());
-                scan.nextLine();
-                break;
-            } catch (Player.NumException e) {
-                System.out.print("Ошибка. Введите число от 1 до 100: ");
-            }
-        } while (true);
+            System.out.print("\n" + player.getName() + " введите число: ");
+        } while (player.addNum(scan.nextInt()));
+        scan.nextLine();
     }
 
     private boolean isGuessed(int playerNum, int hiddenNum) {
@@ -85,16 +84,11 @@ public class GuessNumber {
         return false;
     }
 
-    private Player changePlayer(Player player) {
-        if (player == players[0]) {
-            return players[1];
-        }
-        return player == players[1] ? players[2] : players[0];
-    }
-
     private void printPlayersNums() {
+        System.out.println();
         for (Player player : players) {
             print(player.getName(), player.getAllNums());
+            player.clear();
         }
     }
 
@@ -104,5 +98,25 @@ public class GuessNumber {
             System.out.print(" " + num);
         }
         System.out.println();
+    }
+
+    private void checkWinner(Player[] players) {
+        int[] winsPlayers = new int[len];
+        for (int i = 0; i < len; i++) {
+            winsPlayers[i] = players[i].getWin();
+        }
+        int[] sortWinsPlayers = Arrays.copyOf(winsPlayers, len);
+        Arrays.sort(sortWinsPlayers);
+        if (Arrays.equals(winsPlayers, sortWinsPlayers)) {
+            System.out.println("\nПо итогу " + ROUNDS_LIMIT + " раундов ничья!");
+        } else {
+            for (Player player : players) {
+                if (sortWinsPlayers[len - 1] == player.getWin()) {
+                    System.out.println("\nПо итогу " + ROUNDS_LIMIT +
+                            " раундов победил " + player.getName() + "!");
+                }
+                player.clearWin();
+            }
+        }
     }
 }

@@ -4,9 +4,13 @@ import java.util.Arrays;
 
 public class Player {
 
-    private String name;
-    private int[] nums = new int[10];
+    static final int COUNT_PLAYERS = 3;
+
+    private final String name;
+    private final int[] nums = new int[10];
+
     private int attempt;
+    private int win;
 
     public Player(String name) {
         this.name = name;
@@ -16,13 +20,14 @@ public class Player {
         return name;
     }
 
-    public void addNum(int num) {
+    public boolean addNum(int num) {
         if (num > 0 && num <= 100) {
             nums[attempt] = num;
             attempt++;
-        } else {
-            throw new NumException();
+            return false;
         }
+        System.out.print("Ошибка. Введите число от 1 до 100.");
+            return true;
     }
 
     public int getNum() {
@@ -31,6 +36,14 @@ public class Player {
 
     public int getAttempt() {
         return attempt;
+    }
+
+    public void addWin() {
+        win++;
+    }
+
+    public int getWin() {
+        return win;
     }
 
     public int[] getAllNums() {
@@ -42,6 +55,7 @@ public class Player {
         attempt = 0;
     }
 
-    static class NumException extends RuntimeException {
+    public void clearWin() {
+        win = 0;
     }
 }
