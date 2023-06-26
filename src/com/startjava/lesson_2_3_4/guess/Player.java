@@ -4,13 +4,13 @@ import java.util.Arrays;
 
 public class Player {
 
-    static final int COUNT_PLAYERS = 3;
+    static final int MAX_HIDDEN_NUM = 100;
 
     private final String name;
     private final int[] nums = new int[10];
 
     private int attempt;
-    private int win;
+    private int score;
 
     public Player(String name) {
         this.name = name;
@@ -21,13 +21,13 @@ public class Player {
     }
 
     public boolean addNum(int num) {
-        if (num > 0 && num <= 100) {
+        if (num > 0 && num <= MAX_HIDDEN_NUM) {
             nums[attempt] = num;
             attempt++;
             return false;
         }
         System.out.print("Ошибка. Введите число от 1 до 100.");
-            return true;
+        return true;
     }
 
     public int getNum() {
@@ -38,12 +38,12 @@ public class Player {
         return attempt;
     }
 
-    public void addWin() {
-        win++;
+    public void incrementScore() {
+        score++;
     }
 
-    public int getWin() {
-        return win;
+    public int getScore() {
+        return score;
     }
 
     public int[] getAllNums() {
@@ -56,6 +56,6 @@ public class Player {
     }
 
     public void clearWin() {
-        win = 0;
+        score = 0;
     }
 }
