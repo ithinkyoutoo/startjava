@@ -4,10 +4,8 @@ import java.util.Arrays;
 
 public class Player {
 
-    static final int MAX_HIDDEN_NUM = 100;
-
     private final String name;
-    private final int[] nums = new int[10];
+    private final int[] nums = new int[GuessNumber.ATTEMPTS];
 
     private int attempt;
     private int score;
@@ -21,7 +19,7 @@ public class Player {
     }
 
     public boolean addNum(int num) {
-        if (num > 0 && num <= MAX_HIDDEN_NUM) {
+        if (num > 0 && num <= GuessNumber.MAX_NUM) {
             nums[attempt] = num;
             attempt++;
             return false;

@@ -5,8 +5,9 @@ import java.util.Arrays;
 
 public class GuessNumber {
 
+    static final int ATTEMPTS = 10;
+    static final int MAX_NUM = 100;
     private static final int ROUNDS_LIMIT = 3;
-    private static final int ATTEMPTS = 10;
 
     private final Scanner scan;
     private final Player[] players;
@@ -62,7 +63,7 @@ public class GuessNumber {
     private int createHiddenNum() {
         System.out.println("\nКомпьютер загадал число от 1 до 100, попробуйте отгадать!\n" +
                 "У каждого игрока по " + ATTEMPTS + " попыток");
-        return 1 + (int) (Math.random() * 100);
+        return 1 + (int) (Math.random() * MAX_NUM);
     }
 
     private void enterNum(Player player) {
