@@ -14,7 +14,7 @@ public class Bookshelf {
         if (countBooks == 0) {
             System.out.println("\nШкаф пуст. Вы можете добавить в него первую книгу.\n");
         } else {
-            System.out.println(checkBookshelves(countBooks));
+            System.out.println(checkBookshelves());
             for (int i = 0; i < countBooks; i++) {
                 System.out.println("|" + BOOKS[i] + " ".repeat(lengthBookshelf - BOOKS[i].getLengthBook()) + "|");
                 System.out.println("|" + "-".repeat(lengthBookshelf) + "|");
@@ -23,15 +23,15 @@ public class Bookshelf {
         }
     }
 
-    private static String checkBookshelves(int countBook) {
-        int countFreeBookshelves = BOOKS.length - countBook;
-        return switch (countBook) {
-            case 1 -> "В шкафу " + countBook + " книга и свободно " + countFreeBookshelves + " полок\n";
-            case 2,3,4 -> "В шкафу " + countBook + " книги и свободно " + countFreeBookshelves + " полок\n";
-            case 5 -> "В шкафу " + countBook + " книг и свободно " + countFreeBookshelves + " полок\n";
-            case 6,7,8 -> "В шкафу " + countBook + " книг и свободны " + countFreeBookshelves + " полоки\n";
-            case 9 -> "В шкафу " + countBook + " книг и свободна " + countFreeBookshelves + " полока\n";
-            default -> "В шкафу " + countBook + " книг и нет свободных полок\n";
+    private static String checkBookshelves() {
+        int countFreeBookshelves = BOOKS.length - countBooks;
+        return switch (countBooks) {
+            case 1 -> "В шкафу " + countBooks + " книга и свободно " + countFreeBookshelves + " полок\n";
+            case 2,3,4 -> "В шкафу " + countBooks + " книги и свободно " + countFreeBookshelves + " полок\n";
+            case 5 -> "В шкафу " + countBooks + " книг и свободно " + countFreeBookshelves + " полок\n";
+            case 6,7,8 -> "В шкафу " + countBooks + " книг и свободны " + countFreeBookshelves + " полоки\n";
+            case 9 -> "В шкафу " + countBooks + " книг и свободна " + countFreeBookshelves + " полока\n";
+            default -> "В шкафу " + countBooks + " книг и нет свободных полок\n";
         };
     }
 
