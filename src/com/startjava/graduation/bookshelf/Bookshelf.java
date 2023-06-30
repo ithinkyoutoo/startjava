@@ -1,74 +1,67 @@
 package com.startjava.graduation.bookshelf;
 
-import java.util.Scanner;
 import java.util.Arrays;
 
 public class Bookshelf {
 
-    private static final Book[] BOOKS = new Book[10];
+    private final Book[] books = new Book[10];
 
-    private static int countBooks;
-    private static int lengthBookshelf;
+    private int countBooks;
+    private int lengthBookshelf;
 
-    public static void printAllBooks() {
+    public void printAllBooks() {
         if (countBooks == 0) {
             System.out.println("\nШкаф пуст. Вы можете добавить в него первую книгу.\n");
         } else {
             System.out.println(checkBookshelves());
             for (int i = 0; i < countBooks; i++) {
-                System.out.println("|" + BOOKS[i] + " ".repeat(lengthBookshelf - BOOKS[i].getLengthBook()) + "|");
+                System.out.println("|" + books[i] + " ".repeat(lengthBookshelf - books[i].getLengthBook()) + "|");
                 System.out.println("|" + "-".repeat(lengthBookshelf) + "|");
             }
             System.out.println("|" + " ".repeat(lengthBookshelf) + "|\n");
         }
     }
 
-    private static String checkBookshelves() {
-        int countFreeBookshelves = BOOKS.length - countBooks;
+    private String checkBookshelves() {
         return switch (countBooks) {
-            case 1 -> "В шкафу " + countBooks + " книга и свободно " + countFreeBookshelves + " полок\n";
-            case 2,3,4 -> "В шкафу " + countBooks + " книги и свободно " + countFreeBookshelves + " полок\n";
-            case 5 -> "В шкафу " + countBooks + " книг и свободно " + countFreeBookshelves + " полок\n";
-            case 6,7,8 -> "В шкафу " + countBooks + " книг и свободны " + countFreeBookshelves + " полоки\n";
-            case 9 -> "В шкафу " + countBooks + " книг и свободна " + countFreeBookshelves + " полока\n";
+            case 1 -> "В шкафу " + countBooks + " книга и свободно " + getCountFreeBookshelves() + " полок\n";
+            case 2,3,4 -> "В шкафу " + countBooks + " книги и свободно " + getCountFreeBookshelves() + " полок\n";
+            case 5 -> "В шкафу " + countBooks + " книг и свободно " + getCountFreeBookshelves() + " полок\n";
+            case 6,7,8 -> "В шкафу " + countBooks + " книг и свободны " + getCountFreeBookshelves() + " полоки\n";
+            case 9 -> "В шкафу " + countBooks + " книг и свободна " + getCountFreeBookshelves() + " полока\n";
             default -> "В шкафу " + countBooks + " книг и нет свободных полок\n";
         };
     }
 
-    public static String addBook(Scanner scan) {
-        if (countBooks == BOOKS.length) {
-            return "Свободных полок нет, вы не можете добавить новую книгу";
-        }
-        System.out.print("Введите автора: ");
-        String author = scan.nextLine();
-        System.out.print("Введите название книги: ");
-        String title = scan.nextLine();
-        System.out.print("Введите год издания: ");
-        String yearPublished = scan.nextLine();
-        BOOKS[countBooks] = new Book(author, title, yearPublished);
-        countBooks++;
-        if (lengthBookshelf < BOOKS[countBooks - 1].getLengthBook()) {
-            lengthBookshelf = changeLength();
-        }
-        return "Вы добавили книгу: " + BOOKS[countBooks - 1];
+    public int getCountFreeBookshelves() {
+        return books.length - countBooks;
     }
 
-    public static String searchBook(String title) {
+    public void addBook(Book book) {
+        books[countBooks] = book;
+        countBooks++;
+        if (lengthBookshelf < books[countBooks - 1].getLengthBook()) {
+            lengthBookshelf = changeLength();
+        }
+        System.out.println("Вы добавили книгу: " + books[countBooks - 1]);
+    }
+
+    public String searchBook(String title) {
         for (int i = 0; i < countBooks; i++) {
-            if (title.equals(BOOKS[i].getTitle())) {
-                return "Книга \"" + BOOKS[i] + "\" находится на " + (i + 1) + " полке";
+            if (title.equals(books[i].getTitle())) {
+                return "Книга \"" + books[i] + "\" находится на " + (i + 1) + " полке";
             }
         }
         return "Данной книги нет в шкафу";
     }
 
-    public static String deleteBook(String title) {
+    public String deleteBook(String title) {
         for (int i = 0; i < countBooks; i++) {
-            if (title.equals(BOOKS[i].getTitle())) {
-                Book tempBook = BOOKS[i];
+            if (title.equals(books[i].getTitle())) {
+                Book tempBook = books[i];
                 countBooks--;
-                System.arraycopy(BOOKS, i + 1, BOOKS, i, countBooks - i);
-                BOOKS[countBooks] = null;
+                System.arraycopy(books, i + 1, books, i, countBooks - i);
+                books[countBooks] = null;
                 if (lengthBookshelf == tempBook.getLengthBook()) {
                     lengthBookshelf = changeLength();
                 }
@@ -78,16 +71,16 @@ public class Bookshelf {
         return "Данной книги нет в шкафу";
     }
 
-    public static void clear() {
-        Arrays.fill(BOOKS, 0, countBooks, null);
+    public void clear() {
+        Arrays.fill(books, 0, countBooks, null);
         System.out.println("Вы очистили шкаф от книг");
         countBooks = 0;
     }
 
-    private static int changeLength() {
+    private int changeLength() {
         lengthBookshelf = 0;
         for (int i = 0; i < countBooks; i++) {
-            lengthBookshelf = Math.max(BOOKS[i].getLengthBook(), lengthBookshelf);
+            lengthBookshelf = Math.max(books[i].getLengthBook(), lengthBookshelf);
         }
         return lengthBookshelf;
     }

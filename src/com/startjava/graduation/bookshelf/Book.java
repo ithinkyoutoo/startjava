@@ -2,8 +2,6 @@ package com.startjava.graduation.bookshelf;
 
 public class Book {
 
-    private static final int PUNCTUATION_MARKS = 4;
-
     private final String author;
     private final String title;
     private final String yearPublished;
@@ -13,7 +11,7 @@ public class Book {
         this.author = author;
         this.title = title;
         this.yearPublished = yearPublished;
-        lengthBook = author.length() + title.length() + yearPublished.length() + PUNCTUATION_MARKS;
+        lengthBook = toString().length();
     }
 
     public String getTitle() {
