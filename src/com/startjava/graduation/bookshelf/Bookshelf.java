@@ -4,71 +4,61 @@ import java.util.Arrays;
 
 public class Bookshelf {
 
-    private final Book[] books = new Book[10];
+    private static final int NUM_SHELVES = 10;
+
+    private final Book[] books = new Book[NUM_SHELVES];
 
     private int countBooks;
-    private int lengthBookshelf;
+    private int lengthShelf;
 
-    public void printAllBooks() {
-        if (countBooks == 0) {
-            System.out.println("\nШкаф пуст. Вы можете добавить в него первую книгу.\n");
-        } else {
-            System.out.println(checkBookshelves());
-            for (int i = 0; i < countBooks; i++) {
-                System.out.println("|" + books[i] + " ".repeat(lengthBookshelf - books[i].getLengthBook()) + "|");
-                System.out.println("|" + "-".repeat(lengthBookshelf) + "|");
-            }
-            System.out.println("|" + " ".repeat(lengthBookshelf) + "|\n");
-        }
+    public Book getBook(int num) {
+        return books[num];
     }
 
-    private String checkBookshelves() {
-        return switch (countBooks) {
-            case 1 -> "В шкафу " + countBooks + " книга и свободно " + getCountFreeBookshelves() + " полок\n";
-            case 2,3,4 -> "В шкафу " + countBooks + " книги и свободно " + getCountFreeBookshelves() + " полок\n";
-            case 5 -> "В шкафу " + countBooks + " книг и свободно " + getCountFreeBookshelves() + " полок\n";
-            case 6,7,8 -> "В шкафу " + countBooks + " книг и свободны " + getCountFreeBookshelves() + " полоки\n";
-            case 9 -> "В шкафу " + countBooks + " книг и свободна " + getCountFreeBookshelves() + " полока\n";
-            default -> "В шкафу " + countBooks + " книг и нет свободных полок\n";
-        };
+    public int getCountBooks() {
+        return countBooks;
     }
 
-    public int getCountFreeBookshelves() {
+    public int getLengthShelf() {
+        return lengthShelf;
+    }
+
+    public int getFreeShelves() {
         return books.length - countBooks;
     }
 
-    public void addBook(Book book) {
+    public void add(Book book) {
         books[countBooks] = book;
         countBooks++;
-        if (lengthBookshelf < books[countBooks - 1].getLengthBook()) {
-            lengthBookshelf = changeLength();
+        if (lengthShelf < books[countBooks - 1].getLengthBook()) {
+            lengthShelf = changeLength();
         }
         System.out.println("Вы добавили книгу: " + books[countBooks - 1]);
     }
 
-    public String searchBook(String title) {
+    public Book search(String title) {
         for (int i = 0; i < countBooks; i++) {
             if (title.equals(books[i].getTitle())) {
-                return "Книга \"" + books[i] + "\" находится на " + (i + 1) + " полке";
+                return books[i];
             }
         }
-        return "Данной книги нет в шкафу";
+        return null;
     }
 
-    public String deleteBook(String title) {
+    public boolean delete(Book book) {
         for (int i = 0; i < countBooks; i++) {
-            if (title.equals(books[i].getTitle())) {
+            if (book == books[i]) {
                 Book tempBook = books[i];
                 countBooks--;
                 System.arraycopy(books, i + 1, books, i, countBooks - i);
                 books[countBooks] = null;
-                if (lengthBookshelf == tempBook.getLengthBook()) {
-                    lengthBookshelf = changeLength();
+                if (lengthShelf == tempBook.getLengthBook()) {
+                    lengthShelf = changeLength();
                 }
-                return "Вы удалили книгу: " + tempBook;
+                return true;
             }
         }
-        return "Данной книги нет в шкафу";
+        return false;
     }
 
     public void clear() {
@@ -78,10 +68,10 @@ public class Bookshelf {
     }
 
     private int changeLength() {
-        lengthBookshelf = 0;
+        lengthShelf = 0;
         for (int i = 0; i < countBooks; i++) {
-            lengthBookshelf = Math.max(books[i].getLengthBook(), lengthBookshelf);
+            lengthShelf = Math.max(books[i].getLengthBook(), lengthShelf);
         }
-        return lengthBookshelf;
+        return lengthShelf;
     }
 }
