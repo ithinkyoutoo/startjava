@@ -4,15 +4,15 @@ import java.util.Arrays;
 
 public class Bookshelf {
 
-    private static final int NUM_SHELVES = 10;
+    private static final int CAPACITY = 10;
 
-    private final Book[] books = new Book[NUM_SHELVES];
+    private final Book[] books = new Book[CAPACITY];
 
     private int countBooks;
     private int lengthShelf;
 
-    public Book getBook(int num) {
-        return books[num];
+    public Book[] getAllBooks() {
+        return Arrays.copyOf(books, countBooks);
     }
 
     public int getCountBooks() {
@@ -24,16 +24,16 @@ public class Bookshelf {
     }
 
     public int getFreeShelves() {
-        return books.length - countBooks;
+        return CAPACITY - countBooks;
     }
 
     public void add(Book book) {
         books[countBooks] = book;
         countBooks++;
-        if (lengthShelf < books[countBooks - 1].getLengthBook()) {
+        if (lengthShelf < book.getLengthInfo()) {
             lengthShelf = changeLength();
         }
-        System.out.println("Вы добавили книгу: " + books[countBooks - 1]);
+        System.out.println("Вы добавили книгу: " + book);
     }
 
     public Book search(String title) {
@@ -45,14 +45,14 @@ public class Bookshelf {
         return null;
     }
 
-    public boolean delete(Book book) {
+    public boolean delete(String title) {
         for (int i = 0; i < countBooks; i++) {
-            if (book == books[i]) {
+            if (title.equals(books[i].getTitle())) {
                 Book tempBook = books[i];
                 countBooks--;
                 System.arraycopy(books, i + 1, books, i, countBooks - i);
                 books[countBooks] = null;
-                if (lengthShelf == tempBook.getLengthBook()) {
+                if (lengthShelf == tempBook.getLengthInfo()) {
                     lengthShelf = changeLength();
                 }
                 return true;
@@ -70,7 +70,7 @@ public class Bookshelf {
     private int changeLength() {
         lengthShelf = 0;
         for (int i = 0; i < countBooks; i++) {
-            lengthShelf = Math.max(books[i].getLengthBook(), lengthShelf);
+            lengthShelf = Math.max(books[i].getLengthInfo(), lengthShelf);
         }
         return lengthShelf;
     }

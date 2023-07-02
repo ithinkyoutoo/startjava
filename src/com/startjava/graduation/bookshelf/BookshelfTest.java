@@ -11,14 +11,14 @@ public class BookshelfTest {
         do {
             print(bookshelf);
             printMenu();
-        } while (checkInputNum(scan, bookshelf));
+        } while (selectMenuItem(scan, bookshelf));
     }
 
     private static void print(Bookshelf bookshelf) {
         if (checkShelves(bookshelf.getCountBooks(), bookshelf.getFreeShelves())) {
-            for (int i = 0; i < bookshelf.getCountBooks(); i++) {
-                int freeSpace = bookshelf.getLengthShelf() - bookshelf.getBook(i).getLengthBook();
-                System.out.println("|" + bookshelf.getBook(i) + " ".repeat(freeSpace) + "|");
+            for (Book book : bookshelf.getAllBooks()) {
+                int freeSpace = bookshelf.getLengthShelf() - book.getLengthInfo();
+                System.out.println("|" + book + " ".repeat(freeSpace) + "|");
                 System.out.println("|" + "-".repeat(bookshelf.getLengthShelf()) + "|");
             }
             System.out.println("|" + " ".repeat(bookshelf.getLengthShelf()) + "|\n");
@@ -51,7 +51,7 @@ public class BookshelfTest {
                 """);
     }
 
-    private static boolean checkInputNum(Scanner scan, Bookshelf bookshelf) {
+    private static boolean selectMenuItem(Scanner scan, Bookshelf bookshelf) {
         switch (scan.nextLine()) {
             case "1" -> add(scan, bookshelf);
             case "2" -> search(scan, bookshelf);
@@ -87,7 +87,8 @@ public class BookshelfTest {
 
     private static void delete(Scanner scan, Bookshelf bookshelf) {
         System.out.print("Введите название книги: ");
-        Book book = bookshelf.search(scan.nextLine());
-        System.out.println(bookshelf.delete(book) ? "Вы удалили книгу: " + book : "Данной книги нет в шкафу");
+        String title = scan.nextLine();
+        Book book = bookshelf.search(title);
+        System.out.println(bookshelf.delete(title) ? "Вы удалили книгу: " + book : "Данной книги нет в шкафу");
     }
 }
