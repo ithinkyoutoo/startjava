@@ -4,18 +4,18 @@ import java.util.Scanner;
 
 public class BookshelfTest {
 
-    public static void main(String[] args) {
-        Scanner scan = new Scanner(System.in);
-        Bookshelf bookshelf = new Bookshelf();
+    static Scanner scan = new Scanner(System.in);
+    static Bookshelf bookshelf = new Bookshelf();
 
+    public static void main(String[] args) {
         do {
-            print(bookshelf);
+            printBookshelf();
             printMenu();
-        } while (selectMenuItem(scan, bookshelf));
+        } while (selectMenuItem());
     }
 
-    private static void print(Bookshelf bookshelf) {
-        if (checkShelves(bookshelf.getCountBooks(), bookshelf.getFreeShelves())) {
+    private static void printBookshelf() {
+        if (checkShelves()) {
             for (Book book : bookshelf.getAllBooks()) {
                 int freeSpace = bookshelf.getLengthShelf() - book.getLengthInfo();
                 System.out.println("|" + book + " ".repeat(freeSpace) + "|");
@@ -25,11 +25,13 @@ public class BookshelfTest {
         }
     }
 
-    private static boolean checkShelves(int countBooks, int freeShelves) {
+    private static boolean checkShelves() {
+        int countBooks = bookshelf.getCountBooks();
         if (countBooks == 0) {
             System.out.println("\nШкаф пуст. Вы можете добавить в него первую книгу.\n");
             return false;
         }
+        int freeShelves = bookshelf.getFreeShelves();
         switch (countBooks) {
             case 1 -> System.out.printf("В шкафу %d книга и свободно %d полок%n%n", countBooks, freeShelves);
             case 2, 3, 4 -> System.out.printf("В шкафу %d книги и свободно %d полок%n%n", countBooks, freeShelves);
@@ -51,11 +53,11 @@ public class BookshelfTest {
                 """);
     }
 
-    private static boolean selectMenuItem(Scanner scan, Bookshelf bookshelf) {
+    private static boolean selectMenuItem() {
         switch (scan.nextLine()) {
-            case "1" -> add(scan, bookshelf);
-            case "2" -> search(scan, bookshelf);
-            case "3" -> delete(scan, bookshelf);
+            case "1" -> add();
+            case "2" -> search();
+            case "3" -> delete();
             case "4" -> bookshelf.clear();
             case "5" -> {return false;}
             default -> System.out.println("Введен неверный пункт меню");
@@ -65,7 +67,7 @@ public class BookshelfTest {
         return true;
     }
 
-    private static void add(Scanner scan, Bookshelf bookshelf) {
+    private static void add() {
         if (bookshelf.getFreeShelves() == 0) {
             System.out.println("Свободных полок нет, вы не можете добавить новую книгу");
         } else {
@@ -79,13 +81,13 @@ public class BookshelfTest {
         }
     }
 
-    private static void search(Scanner scan, Bookshelf bookshelf) {
+    private static void search() {
         System.out.print("Введите название книги: ");
         Book book = bookshelf.search(scan.nextLine());
         System.out.println(book != null ? "Результат поиска: " + book : "Данной книги нет в шкафу");
     }
 
-    private static void delete(Scanner scan, Bookshelf bookshelf) {
+    private static void delete() {
         System.out.print("Введите название книги: ");
         String title = scan.nextLine();
         Book book = bookshelf.search(title);
